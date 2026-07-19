@@ -122,32 +122,32 @@ function pageFromPath(pathname) {
 
 const galleryImages = [
   {
-    src: '/media/gallery/azoya-gallery-01.jpeg',
+    src: './media/gallery/azoya-gallery-01.jpeg',
     title: 'Azoya Pattu Pavadai',
     detail: 'Traditional silk finish with festive detailing.',
   },
   {
-    src: '/media/gallery/azoya-gallery-02.jpeg',
+    src: './media/gallery/azoya-gallery-02.jpeg',
     title: 'Rajakumari',
     detail: 'Princess-inspired occasion wear for girls.',
   },
   {
-    src: '/media/gallery/azoya-gallery-03.jpeg',
+    src: './media/gallery/azoya-gallery-03.jpeg',
     title: 'Celebration Wear',
     detail: 'Designed for birthdays, weddings, and family functions.',
   },
   {
-    src: '/media/gallery/azoya-gallery-04.jpeg',
+    src: './media/gallery/azoya-gallery-04.jpeg',
     title: 'Tamil Heritage',
     detail: 'Traditional styling shaped for modern comfort.',
   },
   {
-    src: '/media/gallery/azoya-gallery-05.jpeg',
+    src: './media/gallery/azoya-gallery-05.jpeg',
     title: 'Boutique Finish',
     detail: 'Pleating, trimming, and finishing ready for retail.',
   },
   {
-    src: '/media/gallery/azoya-gallery-06.jpeg',
+    src: './media/gallery/azoya-gallery-06.jpeg',
     title: 'Girls Wear',
     detail: 'Crafted for ages from 6 months to 15 years.',
   },
@@ -306,7 +306,7 @@ function HomePage({ activePage, navigate, theme, toggleTheme }) {
       <section className="relative min-h-[92vh] px-4 py-5 sm:px-6 lg:px-8">
         <div className="absolute inset-0">
           <img
-            src="/media/azoya-pattu-hero.png"
+            src="./media/azoya-pattu-hero.png"
             alt="Silk pattu pavadai fabric and boutique garment craftsmanship"
             className="h-full w-full object-cover"
           />
