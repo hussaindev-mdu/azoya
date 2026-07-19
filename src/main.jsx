@@ -503,7 +503,7 @@ function AboutPage({ activePage, navigate, theme, toggleTheme }) {
         <div>
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/50 px-4 py-2 text-sm font-bold text-azoya-rose shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/10 dark:text-azoya-lotus">
             <BookOpenText className="h-4 w-4" />
-            Journey of our client
+            Our Journey
           </div>
           <h1 className="text-balance text-5xl font-black leading-[1.03] sm:text-6xl">The story of Sana Creation</h1>
           <p className="mt-5 max-w-2xl text-lg font-medium leading-8 text-black/60 dark:text-white/60">
