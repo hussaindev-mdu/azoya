@@ -12,6 +12,7 @@ import {
   Instagram,
   Mail,
   MapPin,
+  Menu,
   MessageCircle,
   Moon,
   Phone,
@@ -22,6 +23,7 @@ import {
   Store,
   Sun,
   Wand2,
+  X,
 } from 'lucide-react';
 import './styles.css';
 
@@ -194,14 +196,21 @@ function LogoMark() {
 }
 
 function SiteHeader({ activePage, navigate, theme, toggleTheme, elevated = false }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const linkClass = (page) =>
     `hover:text-azoya-rose dark:hover:text-azoya-lotus ${
       activePage === page ? 'text-azoya-rose dark:text-azoya-lotus' : 'text-black/60 dark:text-white/70'
     }`;
 
+  const handleNavClick = (event, path) => {
+    navigate(event, path);
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header
-      className={`relative z-10 mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/50 bg-white/40 px-4 py-3 shadow-glass backdrop-blur-2xl dark:border-white/10 dark:bg-white/10 ${
+      className={`relative z-50 mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/50 bg-white/40 px-4 py-3 shadow-glass backdrop-blur-2xl dark:border-white/10 dark:bg-white/10 ${
         elevated ? 'mt-5' : ''
       }`}
     >
@@ -212,6 +221,8 @@ function SiteHeader({ activePage, navigate, theme, toggleTheme, elevated = false
           <span className="block text-xs font-semibold text-black/50 dark:text-white/50">Azoya Pattu Pavadai</span>
         </span>
       </a>
+      
+      {/* Desktop Navigation */}
       <nav className="hidden items-center gap-7 text-sm font-semibold md:flex">
         <a className={linkClass('home')} href="/" onClick={(event) => navigate(event, '/')}>
           Home
@@ -226,10 +237,59 @@ function SiteHeader({ activePage, navigate, theme, toggleTheme, elevated = false
           Contact
         </a>
       </nav>
+
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-black/40 md:hidden" onClick={() => setMobileMenuOpen(false)} />
+      )}
+      <div className={`absolute right-0 top-full z-50 mt-2 w-56 rounded-2xl border border-white/50 bg-white/95 shadow-lg backdrop-blur-xl transition-all duration-200 dark:border-white/10 dark:bg-white/10 md:hidden ${
+        mobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
+      }`}>
+        <nav className="flex flex-col gap-0 p-4 text-sm font-semibold">
+          <a
+            className={`rounded-lg px-4 py-3 transition ${linkClass('home')}`}
+            href="/"
+            onClick={(event) => handleNavClick(event, '/')}
+          >
+            Home
+          </a>
+          <a
+            className={`rounded-lg px-4 py-3 transition ${linkClass('about')}`}
+            href="/about"
+            onClick={(event) => handleNavClick(event, '/about')}
+          >
+            About
+          </a>
+          <a
+            className={`rounded-lg px-4 py-3 transition ${linkClass('gallery')}`}
+            href="/gallery"
+            onClick={(event) => handleNavClick(event, '/gallery')}
+          >
+            Gallery
+          </a>
+          <a
+            className={`rounded-lg px-4 py-3 transition ${linkClass('contact')}`}
+            href="/contact"
+            onClick={(event) => handleNavClick(event, '/contact')}
+          >
+            Contact
+          </a>
+        </nav>
+      </div>
+      
       <div className="flex items-center gap-2">
         <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+        <button
+          className="z-50 grid h-10 w-10 place-items-center rounded-full border border-white/60 bg-white/60 text-azoya-ink shadow-sm backdrop-blur-xl transition hover:bg-white/100 focus:outline-none focus:ring-4 focus:ring-azoya-lotus/25 dark:border-white/10 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 md:hidden"
+          type="button"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+          title="Menu"
+        >
+          {mobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+        </button>
         <a
-          className="inline-flex h-10 items-center justify-center rounded-full bg-white/60 px-4 text-sm font-bold text-azoya-ink shadow-sm backdrop-blur-xl hover:bg-white/100 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+          className="hidden h-10 items-center justify-center rounded-full bg-white/60 px-4 text-sm font-bold text-azoya-ink shadow-sm backdrop-blur-xl hover:bg-white/100 dark:bg-white/10 dark:text-white dark:hover:bg-white/20 sm:inline-flex"
           href="/contact"
           onClick={(event) => navigate(event, '/contact')}
         >
