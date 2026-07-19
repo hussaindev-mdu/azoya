@@ -120,36 +120,40 @@ function pageFromPath(pathname) {
   return 'home';
 }
 
-const BASE_URL = import.meta.env.BASE_URL;
+// Helper to get proper asset path for public files
+const getAssetPath = (path) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${path}`.replace(/\/{2,}/g, '/'); // Remove double slashes
+};
 
 const galleryImages = [
   {
-    src: `${BASE_URL}media/gallery/azoya-gallery-01.jpeg`,
+    src: getAssetPath('media/gallery/azoya-gallery-01.jpeg'),
     title: 'Azoya Pattu Pavadai',
     detail: 'Traditional silk finish with festive detailing.',
   },
   {
-    src: `${BASE_URL}media/gallery/azoya-gallery-02.jpeg`,
+    src: getAssetPath('media/gallery/azoya-gallery-02.jpeg'),
     title: 'Rajakumari',
     detail: 'Princess-inspired occasion wear for girls.',
   },
   {
-    src: `${BASE_URL}media/gallery/azoya-gallery-03.jpeg`,
+    src: getAssetPath('media/gallery/azoya-gallery-03.jpeg'),
     title: 'Celebration Wear',
     detail: 'Designed for birthdays, weddings, and family functions.',
   },
   {
-    src: `${BASE_URL}media/gallery/azoya-gallery-04.jpeg`,
+    src: getAssetPath('media/gallery/azoya-gallery-04.jpeg'),
     title: 'Tamil Heritage',
     detail: 'Traditional styling shaped for modern comfort.',
   },
   {
-    src: `${BASE_URL}media/gallery/azoya-gallery-05.jpeg`,
+    src: getAssetPath('media/gallery/azoya-gallery-05.jpeg'),
     title: 'Boutique Finish',
     detail: 'Pleating, trimming, and finishing ready for retail.',
   },
   {
-    src: `${BASE_URL}media/gallery/azoya-gallery-06.jpeg`,
+    src: getAssetPath('media/gallery/azoya-gallery-06.jpeg'),
     title: 'Girls Wear',
     detail: 'Crafted for ages from 6 months to 15 years.',
   },
@@ -308,7 +312,7 @@ function HomePage({ activePage, navigate, theme, toggleTheme }) {
       <section className="relative min-h-[92vh] px-4 py-5 sm:px-6 lg:px-8">
         <div className="absolute inset-0">
           <img
-            src={`${BASE_URL}media/azoya-pattu-hero.png`}
+            src={getAssetPath('media/azoya-pattu-hero.png')}
             alt="Silk pattu pavadai fabric and boutique garment craftsmanship"
             className="h-full w-full object-cover"
           />
