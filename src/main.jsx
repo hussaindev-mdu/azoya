@@ -8,6 +8,7 @@ import {
   Clock3,
   Gem,
   Heart,
+  Images,
   Instagram,
   Mail,
   MapPin,
@@ -112,9 +113,43 @@ const sizes = ['6M', '1Y', '2Y', '3-5Y', '6-9Y', '10-12Y', '13-15Y'];
 
 function pageFromPath(pathname) {
   if (pathname === '/about') return 'about';
+  if (pathname === '/gallery') return 'gallery';
   if (pathname === '/contact') return 'contact';
   return 'home';
 }
+
+const galleryImages = [
+  {
+    src: '/media/gallery/azoya-gallery-01.jpeg',
+    title: 'Azoya Pattu Pavadai',
+    detail: 'Traditional silk finish with festive detailing.',
+  },
+  {
+    src: '/media/gallery/azoya-gallery-02.jpeg',
+    title: 'Rajakumari',
+    detail: 'Princess-inspired occasion wear for girls.',
+  },
+  {
+    src: '/media/gallery/azoya-gallery-03.jpeg',
+    title: 'Celebration Wear',
+    detail: 'Designed for birthdays, weddings, and family functions.',
+  },
+  {
+    src: '/media/gallery/azoya-gallery-04.jpeg',
+    title: 'Tamil Heritage',
+    detail: 'Traditional styling shaped for modern comfort.',
+  },
+  {
+    src: '/media/gallery/azoya-gallery-05.jpeg',
+    title: 'Boutique Finish',
+    detail: 'Pleating, trimming, and finishing ready for retail.',
+  },
+  {
+    src: '/media/gallery/azoya-gallery-06.jpeg',
+    title: 'Girls Wear',
+    detail: 'Crafted for ages from 6 months to 15 years.',
+  },
+];
 
 function GlassButton({ children, href, onClick, variant = 'primary' }) {
   const base =
@@ -184,6 +219,9 @@ function SiteHeader({ activePage, navigate, theme, toggleTheme, elevated = false
         <a className={linkClass('about')} href="/about" onClick={(event) => navigate(event, '/about')}>
           About
         </a>
+        <a className={linkClass('gallery')} href="/gallery" onClick={(event) => navigate(event, '/gallery')}>
+          Gallery
+        </a>
         <a className={linkClass('contact')} href="/contact" onClick={(event) => navigate(event, '/contact')}>
           Contact
         </a>
@@ -234,6 +272,9 @@ function HomePage({ activePage, navigate, theme, toggleTheme }) {
             <div className="mt-8 flex flex-wrap gap-3">
               <GlassButton href="#collections">
                 View Products <ArrowRight className="h-4 w-4" />
+              </GlassButton>
+              <GlassButton href="/gallery" onClick={(event) => navigate(event, '/gallery')} variant="secondary">
+                Gallery <Images className="h-4 w-4" />
               </GlassButton>
               <GlassButton href="#process" variant="secondary">
                 Process <ChevronRight className="h-4 w-4" />
@@ -454,6 +495,51 @@ function AboutPage({ activePage, navigate, theme, toggleTheme }) {
           passion that started it all: to preserve tradition, inspire confidence, and create timeless memories for
           generations to come.
         </p>
+      </section>
+    </InnerPageShell>
+  );
+}
+
+function GalleryPage({ activePage, navigate, theme, toggleTheme }) {
+  return (
+    <InnerPageShell activePage={activePage} navigate={navigate} theme={theme} toggleTheme={toggleTheme}>
+      <section className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/50 px-4 py-2 text-sm font-bold text-azoya-rose shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/10 dark:text-azoya-lotus">
+            <Images className="h-4 w-4" />
+            Product gallery
+          </div>
+          <h1 className="text-balance text-5xl font-black leading-[1.03] sm:text-6xl">Azoya and Rajakumari collections</h1>
+          <p className="mt-5 max-w-2xl text-lg font-medium leading-8 text-black/60 dark:text-white/60">
+            A closer look at Sana Creation's traditional girls' wear, from festive pattu pavadai styling to celebration
+            dresses designed for childhood memories.
+          </p>
+        </div>
+        <GlassButton href="/contact" onClick={(event) => navigate(event, '/contact')}>
+          Enquire Now <ArrowRight className="h-4 w-4" />
+        </GlassButton>
+      </section>
+
+      <section className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {galleryImages.map((image) => (
+          <article
+            key={image.src}
+            className="group overflow-hidden rounded-[1.75rem] border border-white/70 bg-white/55 p-3 shadow-glass backdrop-blur-xl dark:border-white/10 dark:bg-white/10"
+          >
+            <div className="overflow-hidden rounded-[1.25rem] bg-white/50 dark:bg-white/10">
+              <img
+                className="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                src={image.src}
+                alt={`${image.title} by Sana Creation`}
+                loading="lazy"
+              />
+            </div>
+            <div className="p-3">
+              <h2 className="text-xl font-black">{image.title}</h2>
+              <p className="mt-2 text-sm font-medium leading-6 text-black/60 dark:text-white/60">{image.detail}</p>
+            </div>
+          </article>
+        ))}
       </section>
     </InnerPageShell>
   );
@@ -688,6 +774,9 @@ function App() {
 
   if (activePage === 'about') {
     return <AboutPage activePage={activePage} navigate={navigate} theme={theme} toggleTheme={toggleTheme} />;
+  }
+  if (activePage === 'gallery') {
+    return <GalleryPage activePage={activePage} navigate={navigate} theme={theme} toggleTheme={toggleTheme} />;
   }
   if (activePage === 'contact') {
     return <ContactPage activePage={activePage} navigate={navigate} theme={theme} toggleTheme={toggleTheme} />;
