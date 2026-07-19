@@ -114,11 +114,23 @@ const collections = [
 const sizes = ['6M', '1Y', '2Y', '3-5Y', '6-9Y', '10-12Y', '13-15Y'];
 
 function pageFromPath(pathname) {
-  if (pathname === '/about') return 'about';
-  if (pathname === '/gallery') return 'gallery';
-  if (pathname === '/contact') return 'contact';
+  // Remove base path to get the route
+  const BASE_URL = import.meta.env.BASE_URL || '/';
+  const basePath = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+  const route = pathname.startsWith(basePath) ? pathname.slice(basePath.length) : pathname;
+  
+  if (route === '/about') return 'about';
+  if (route === '/gallery') return 'gallery';
+  if (route === '/contact') return 'contact';
   return 'home';
 }
+
+// Helper to get proper URL with base path
+const getPageUrl = (path) => {
+  const base = import.meta.env.BASE_URL || '/';
+  const basePath = base.endsWith('/') ? base.slice(0, -1) : base;
+  return `${basePath}${path}`;
+};
 
 // Helper to get proper asset path for public files
 const getAssetPath = (path) => {
@@ -831,8 +843,11 @@ function App() {
 
   const navigate = (event, path) => {
     event.preventDefault();
-    window.history.pushState({}, '', path);
-    setActivePage(pageFromPath(path));
+    const BASE_URL = import.meta.env.BASE_URL || '/';
+    const basePath = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+    const fullPath = basePath + path;
+    window.history.pushState({}, '', fullPath);
+    setActivePage(pageFromPath(fullPath));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
